@@ -250,14 +250,17 @@ main.about-layout {
   }
 
   /* Nav: stack links vertically for easy tapping */
-  nav ul li {
-    display: block;
-    margin: 0.4rem 0;
-  }
   nav ul {
-    padding: 0.25rem 0.5rem;
+    display: flex;          /* keep them in a row */
+    flex-wrap: wrap;        /* allow wrapping if they don’t fit on one line */
+    justify-content: center;
+    padding: 0;
   }
 
+  nav ul li {
+    display: inline-block;  /* keep side-by-side */
+    margin: 0 .5rem;
+  }
   /* Photo strip: single column full width */
   .photo-strip img {
     max-width: 100%;
