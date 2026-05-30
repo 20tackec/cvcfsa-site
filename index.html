@@ -1,60 +1,979 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CFSA | Home</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVCFSA | Chippewa Valley Chinese Friendship and Scholarship Association</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Ma+Shan+Zheng&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:       #7A1010;
+      --red-dark:  #4E0A0A;
+      --gold:      #C49A28;
+      --gold-light:#E2BC5C;
+      --cream:     #F6F1E8;
+      --cream-dark:#EDE5D2;
+      --ink:       #1C0E08;
+      --ink-light: #5A3A28;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Crimson Pro', Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.72;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--red-dark);
+      border-bottom: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 70px;
+    }
+    .nav-logo {
+      font-family: 'Ma Shan Zheng', serif;
+      color: var(--gold-light); font-size: 1.7rem;
+      letter-spacing: 0.35em; cursor: pointer;
+      transition: opacity 0.2s; text-decoration: none;
+    }
+    .nav-logo:hover { opacity: 0.85; }
+    .nav-links { display: flex; gap: clamp(1.2rem, 2.5vw, 2.5rem); list-style: none; }
+    .nav-links a {
+      font-family: 'Crimson Pro', serif;
+      color: rgba(246,241,232,0.75); text-decoration: none;
+      font-size: 0.88rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 400; position: relative; padding-bottom: 3px;
+      transition: color 0.2s; cursor: pointer;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* ─── PAGE SYSTEM ─── */
+    .page { display: none; padding-top: 70px; min-height: 100vh; }
+    .page.active { display: block; animation: pageFadeIn 0.4s ease both; }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      background: var(--red-dark);
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: attr(data-bg); font-family: 'Ma Shan Zheng', serif;
+      font-size: clamp(10rem, 22vw, 22rem);
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,0.04); line-height: 1;
+      pointer-events: none; white-space: nowrap;
+    }
+    .page-header .zh-label {
+      display: block; font-family: 'Ma Shan Zheng', serif;
+      color: var(--gold); font-size: 1.3rem; letter-spacing: 0.45em;
+      margin-bottom: 0.75rem; position: relative;
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif; color: var(--cream);
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 300;
+      letter-spacing: 0.04em; position: relative;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: calc(88vh - 70px); background: var(--red-dark);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(196,154,40,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,154,40,0.06) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+    .hero-watermark {
+      position: absolute; font-family: 'Ma Shan Zheng', serif;
+      font-size: clamp(14rem, 35vw, 38rem); color: rgba(255,255,255,0.025);
+      line-height: 1; letter-spacing: -0.05em; pointer-events: none;
+      user-select: none; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); white-space: nowrap;
+    }
+    .hero-content { position: relative; z-index: 1; padding: 2rem; }
+    .hero-zh {
+      font-family: 'Ma Shan Zheng', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem); color: var(--gold-light);
+      letter-spacing: 0.5em; display: block; margin-bottom: 1.5rem;
+      animation: riseIn 0.9s ease both;
+    }
+    .hero-rule {
+      width: 56px; height: 2px; background: var(--gold);
+      margin: 0 auto 1.75rem; animation: riseIn 0.9s ease 0.15s both;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 2.9rem); color: var(--cream);
+      font-weight: 300; line-height: 1.25; max-width: 680px;
+      animation: riseIn 0.9s ease 0.25s both;
+    }
+    .hero-sub {
+      margin-top: 1rem; font-size: 1rem; color: rgba(246,241,232,0.6);
+      font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
+      animation: riseIn 0.9s ease 0.35s both;
+    }
+    .hero-cta {
+      margin-top: 2.8rem; display: flex; gap: 1rem;
+      justify-content: center; flex-wrap: wrap;
+      animation: riseIn 0.9s ease 0.45s both;
+    }
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-block; padding: 0.75rem 2.2rem; text-decoration: none;
+      font-family: 'Crimson Pro', serif; font-size: 0.92rem;
+      letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+      transition: all 0.22s ease; border: none;
+    }
+    .btn-gold { background: var(--gold); color: var(--ink); font-weight: 600; }
+    .btn-gold:hover {
+      background: var(--gold-light); transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+    .btn-outline-cream {
+      border: 1px solid rgba(246,241,232,0.5); color: var(--cream);
+      font-weight: 300; background: transparent;
+    }
+    .btn-outline-cream:hover { background: rgba(246,241,232,0.08); border-color: var(--cream); }
+    .btn-outline-red {
+      border: 1.5px solid var(--red); color: var(--red);
+      font-weight: 400; background: transparent;
+    }
+    .btn-outline-red:hover { background: var(--red); color: var(--cream); }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 1100px; margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .band { padding: clamp(3rem, 6vw, 5.5rem) clamp(1.5rem, 5vw, 4rem); }
+    .band-dark { background: var(--red-dark); }
+    .band-tinted { background: var(--cream-dark); }
+
+    /* ─── TYPOGRAPHY ─── */
+    .eyebrow {
+      display: block; font-family: 'Crimson Pro', serif;
+      font-size: 0.82rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.9rem;
+    }
+    h2.headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.9rem); font-weight: 400;
+      color: var(--red-dark); line-height: 1.2; margin-bottom: 1.75rem;
+    }
+    .lead { font-size: 1.1rem; color: var(--ink-light); max-width: 620px; line-height: 1.8; }
+
+    /* ═══════════════════════════════════════════════
+       SLIDESHOW
+    ═══════════════════════════════════════════════ */
+    .slideshow-section {
+      background: var(--ink);
+      padding: clamp(3rem, 6vw, 5rem) 0 0;
+    }
+    .slideshow-label {
+      display: block; font-family: 'Crimson Pro', serif;
+      font-size: 0.82rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+    .slideshow-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 300;
+      color: var(--cream); line-height: 1.2; margin-bottom: 2.5rem;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .slideshow-track-wrap {
+      position: relative; overflow: hidden; width: 100%;
+    }
+    .slideshow-track {
+      display: flex; transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      will-change: transform;
+    }
+    .slide {
+      min-width: 100%; position: relative; height: clamp(400px, 70vw, 80vh);
+      flex-shrink: 0;
+    }
+    .slide img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .slide-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(30,8,4,0.78));
+      padding: 3rem 2.5rem 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 300; font-style: italic;
+      color: rgba(246,241,232,0.9); letter-spacing: 0.04em;
+    }
+
+    /* arrow buttons */
+    .slide-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 10; background: rgba(78,10,10,0.75);
+      border: 1px solid var(--gold); color: var(--gold-light);
+      width: 48px; height: 48px; display: flex; align-items: center;
+      justify-content: center; cursor: pointer; font-size: 1.3rem;
+      transition: all 0.2s; backdrop-filter: blur(4px);
+    }
+    .slide-btn:hover { background: var(--red-dark); color: var(--gold-light); }
+    .slide-btn-prev { left: 1.2rem; }
+    .slide-btn-next { right: 1.2rem; }
+
+    /* dots */
+    .slide-dots {
+      display: flex; justify-content: center; gap: 0.6rem;
+      padding: 1.4rem 0 2rem; background: var(--ink);
+    }
+    .slide-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(196,154,40,0.3); border: none;
+      cursor: pointer; transition: all 0.25s; padding: 0;
+    }
+    .slide-dot.active { background: var(--gold); transform: scale(1.3); }
+
+    /* ═══════════════════════════════════════════════
+       GALLERY PAGE
+    ═══════════════════════════════════════════════ */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 2.5rem;
+    }
+    .photo-item {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--cream-dark);
+      cursor: zoom-in;
+    }
+    .photo-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.5s ease;
+    }
+    .photo-item:hover img { transform: scale(1.06); }
+    .photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(transparent 50%, rgba(78,10,10,0.7));
+      opacity: 0; transition: opacity 0.3s ease;
+      display: flex; align-items: flex-end;
+      padding: 1.2rem 1rem;
+    }
+    .photo-item:hover .photo-overlay { opacity: 1; }
+    .photo-overlay span {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--cream); font-size: 1rem; font-style: italic;
+      font-weight: 300;
+    }
+
+    /* lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(28,14,8,0.94); align-items: center;
+      justify-content: center; cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 90vh; object-fit: contain;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 2rem;
+      color: var(--gold-light); font-size: 2rem; cursor: pointer;
+      background: none; border: none; line-height: 1;
+    }
+
+    /* ─── EVENT STRIP ─── */
+    .event-strip {
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .event-strip-text .eyebrow { color: var(--gold); }
+    .event-strip-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem); color: var(--cream);
+      font-weight: 400; margin-bottom: 0.4rem;
+    }
+    .event-strip-text p { color: rgba(246,241,232,0.65); font-size: 1rem; }
+
+    /* ─── PULL-QUOTE ─── */
+    .pull-quote {
+      background: var(--red-dark);
+      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 6vw, 5rem);
+      position: relative; overflow: hidden; margin-bottom: 3.5rem;
+    }
+    .pull-quote::after {
+      content: '谊'; font-family: 'Ma Shan Zheng', serif;
+      font-size: clamp(12rem, 25vw, 22rem);
+      position: absolute; right: -1rem; top: 50%;
+      transform: translateY(-50%); color: rgba(255,255,255,0.04);
+      line-height: 1; pointer-events: none;
+    }
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.85rem); font-style: italic;
+      font-weight: 300; color: var(--cream); max-width: 700px;
+      line-height: 1.55; position: relative;
+    }
+    .pull-quote p::before {
+      content: '"'; font-size: 4rem; line-height: 0;
+      vertical-align: -1.2rem; color: var(--gold);
+      font-style: normal; margin-right: 0.15em;
+    }
+
+    /* ─── PILLARS ─── */
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.5rem; }
+    .pillar { border-top: 2px solid var(--gold); padding-top: 1.5rem; }
+    .pillar-num {
+      font-family: 'Ma Shan Zheng', serif; font-size: 2.5rem;
+      color: rgba(196,154,40,0.25); line-height: 1; display: block; margin-bottom: 0.5rem;
+    }
+    .pillar h4 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.25rem;
+      color: var(--red-dark); font-weight: 600; margin-bottom: 0.65rem;
+    }
+    .pillar p { font-size: 0.98rem; color: var(--ink-light); line-height: 1.7; }
+
+    /* ─── EVENT CARDS ─── */
+    .event-card {
+      border: 1.5px solid var(--cream-dark);
+      padding: clamp(2rem, 4vw, 3rem);
+      position: relative; overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .event-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: var(--gold);
+    }
+    .event-card.coming-soon::before { background: var(--red); }
+    .event-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--red-dark);
+      font-weight: 400; margin-bottom: 0.75rem;
+    }
+    .event-card p { color: var(--ink-light); margin-bottom: 2rem; max-width: 600px; }
+
+    .event-badge {
+      display: inline-block; font-family: 'Crimson Pro', serif;
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.25rem 0.85rem; margin-bottom: 0.75rem;
+    }
+    .badge-gold { background: var(--gold); color: var(--ink); }
+    .badge-coming { background: rgba(122,16,16,0.12); color: var(--red); border: 1px solid rgba(122,16,16,0.3); }
+
+    .event-details-row {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+    .event-detail { font-size: 0.95rem; color: var(--ink-light); }
+    .event-detail strong {
+      display: block; font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 400; margin-bottom: 0.2rem;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 6rem); align-items: center;
+    }
+    .contact-item { margin-bottom: 2.5rem; }
+    .contact-item h4 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+      color: var(--red-dark); font-weight: 600; margin-bottom: 0.4rem;
+    }
+    .contact-item a {
+      color: var(--gold); text-decoration: none; font-size: 1.1rem; transition: color 0.2s;
+    }
+    .contact-item a:hover { color: var(--red); }
+    .contact-visual {
+      background: var(--red-dark); padding: clamp(2.5rem, 5vw, 4.5rem);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .contact-visual::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(196,154,40,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,154,40,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .contact-zh {
+      font-family: 'Ma Shan Zheng', serif; font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--gold-light); letter-spacing: 0.3em; display: block;
+      line-height: 1.2; position: relative;
+    }
+    .contact-visual p {
+      color: rgba(246,241,232,0.55); font-size: 0.82rem; letter-spacing: 0.2em;
+      text-transform: uppercase; margin-top: 1.2rem; position: relative;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink); padding: 3rem clamp(1.5rem, 5vw, 4rem);
+      text-align: center; border-top: 2px solid var(--red-dark);
+    }
+    .footer-zh {
+      font-family: 'Ma Shan Zheng', serif; font-size: 1.6rem;
+      color: var(--gold); letter-spacing: 0.35em; display: block; margin-bottom: 1rem;
+    }
+    footer p { color: rgba(246,241,232,0.45); font-size: 0.9rem; letter-spacing: 0.06em; font-weight: 300; }
+    footer a { color: rgba(196,154,40,0.8); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--gold-light); }
+
+    /* ─── ACTIVITIES ─── */
+    .activities-list { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; margin-top: 1.75rem; }
+    .activity-tag {
+      background: var(--cream); border: 1px solid var(--cream-dark);
+      color: var(--ink-light); font-size: 0.88rem; padding: 0.35rem 1rem;
+      letter-spacing: 0.08em; font-family: 'Crimson Pro', serif;
+    }
+
+    /* ─── GALLERY SECTION HEADERS ─── */
+    .gallery-section-header {
+      margin-top: 3.5rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--gold);
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .gallery-section-zh {
+      font-family: 'Ma Shan Zheng', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.35em;
+      flex-shrink: 0;
+    }
+    .gallery-section-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--red-dark);
+      margin-right: 1rem;
+    }
+    .gallery-section-header p {
+      font-size: 1rem;
+      color: var(--ink-light);
+      font-style: italic;
+    }
+
+
+    @media (max-width: 700px) {
+      .pillars { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-visual { display: none; }
+      .event-strip { flex-direction: column; align-items: flex-start; }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 450px) {
+      .photo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <div class="title">
-      <h1>华 谊 协 会</h1>
-      <h2>Chinese Friendship and Scholarship  Association</h2>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a class="nav-logo" onclick="show('home')">华 谊 协 会</a>
+  <ul class="nav-links">
+    <li><a id="nl-home"    onclick="show('home')"    class="active">Home</a></li>
+    <li><a id="nl-about"   onclick="show('about')"            >About</a></li>
+    <li><a id="nl-events"  onclick="show('events')"           >Events</a></li>
+    <li><a id="nl-gallery" onclick="show('gallery')"          >Gallery</a></li>
+    <li><a id="nl-contact" onclick="show('contact')"          >Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<div id="pg-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-watermark">华谊</div>
+    <div class="hero-content">
+      <span class="hero-zh">华 谊 协 会</span>
+      <div class="hero-rule"></div>
+      <h1 class="hero-title">Chippewa Valley Chinese<br>Friendship and Scholarship Association</h1>
+      <p class="hero-sub">Eau Claire, WI &nbsp;·&nbsp; Building bridges between cultures</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" onclick="show('contact')">Join Us</a>
+        <a class="btn btn-outline-cream" onclick="show('events')">Upcoming Events →</a>
+      </div>
     </div>
-  </header>
+  </div>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="events.html">Events</a></li>
-      <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-  </nav>
+  <!-- ── SLIDESHOW ── -->
+  <div class="slideshow-section">
+    <span class="slideshow-label">Our Community</span>
+    <h2 class="slideshow-title">Moments from CFSA Events</h2>
 
-  <main>
-    <section>
-      <h3 class="welcome-title">Welcome!</h3>
-      <p>This is the official website of the Chinese Friendship and Scholarship Association.</p>
-    </section>
+    <div class="slideshow-track-wrap">
+      <div class="slideshow-track" id="slideshowTrack">
 
-    <div class="photo-strip">
-      <img src="images/quilts.jpg" alt="Quilts">
-      <img src="images/calligraphy.jpg" alt="Calligraphy workshop">
-      <img src="images/cultural-event.jpg" alt="Cultural event">
+        <div class="slide">
+          <img src="images/lion-dance.jpg" alt="Lion dance performance">
+          <div class="slide-caption">Lion dance performance at the Chinese New Year Celebration</div>
+        </div>
+        <div class="slide">
+          <img src="images/dragon-dance.jpg" alt="Dragon dance performance">
+          <div class="slide-caption">Dragon dance — a highlight of our annual Chinese New Year celebration</div>
+        </div>
+        <div class="slide">
+          <img src="images/cny-venue.jpg" alt="Chinese New Year celebration at the Heyde Center">
+          <div class="slide-caption">A full house at the Heyde Center for Chinese New Year 2026</div>
+        </div>
+        <div class="slide">
+          <img src="images/homepage1.jpg" alt="CFSA community banquet">
+          <div class="slide-caption">Community gathering — bringing Chippewa Valley together</div>
+        </div>
+        <div class="slide">
+          <img src="images/tower.jpg" alt="CFSA group outing">
+          <div class="slide-caption">CFSA families enjoy a fall outing together</div>
+        </div>
+        <div class="slide">
+          <img src="images/apples.jpg" alt="Apple picking outing">
+          <div class="slide-caption">Apple picking — one of our beloved community outings</div>
+        </div>
+        <div class="slide">
+          <img src="images/calligraphy.jpg" alt="Calligraphy workshop">
+          <div class="slide-caption">Calligraphy workshop — learning the art of Chinese brush writing</div>
+        </div>
+        <div class="slide">
+          <img src="images/quilts.jpg" alt="Traditional quilts display">
+          <div class="slide-caption">Traditional quilt display at a CFSA cultural event</div>
+        </div>
+
+      </div>
+
+      <button class="slide-btn slide-btn-prev" onclick="slideMove(-1)">&#8592;</button>
+      <button class="slide-btn slide-btn-next" onclick="slideMove(1)">&#8594;</button>
     </div>
 
-    <div class="announcement">
-      <h2>Chinese New Year Celebration 2026 information can be found <a href="events.html">here</a>!</h2>
-    </div>
+    <div class="slide-dots" id="slideDots"></div>
+  </div>
 
-    <div class="cta">
-      <p>Interested in joining CFSA or attending an event?</p><br>
-      <a href="contact.html" class="cta-btn">Sign Up Today!</a>
+  <!-- ── EVENT STRIP ── -->
+  <div class="band band-dark">
+    <div style="max-width:1100px; margin:0 auto; padding: 0 clamp(1.5rem,5vw,4rem);">
+      <div class="event-strip">
+        <div class="event-strip-text">
+          <span class="eyebrow">Coming Up</span>
+          <h3>Dragon Boat Festival 2026</h3>
+          <p>Date, time, and location coming soon — stay tuned for details!</p>
+        </div>
+        <a class="btn btn-gold" onclick="show('events')">View All Events →</a>
+      </div>
     </div>
-  </main>
+  </div>
 
   <footer>
-  <div class="footer-content">
-    <p>&copy; 2025 Chinese Friendship and Scholarship Association</p>
-    <a href="https://www.facebook.com/groups/517836841890804/" target="_blank" class="facebook-link">
-      <img src="images/facebook.jpg" alt="Facebook" class="facebook-icon">
-      Follow us on Facebook
-    </a>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2025 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
+
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<div id="pg-about" class="page">
+  <div class="page-header" data-bg="友">
+    <span class="zh-label">关 于 我 们</span>
+    <h1>About CFSA</h1>
   </div>
-</footer>
+  <div class="container">
+    <div class="pull-quote">
+      <p>dedicated to fostering understanding, friendship, and celebration of Chinese traditions through food, music, and art.</p>
+    </div>
+    <span class="eyebrow">Who We Are</span>
+    <h2 class="headline">A Community Rooted<br>in Heritage &amp; Friendship</h2>
+    <p class="lead">CFSA is a cultural organization based in Eau Claire, WI and the surrounding area. Founded with the vision of unity through diversity, CFSA hosts a variety of programs that celebrate heritage, connect cultures, and build lasting friendships.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-num">一</span>
+        <h4>Language &amp; Culture</h4>
+        <p>Promote appreciation and understanding of Chinese language and cultural traditions within our community.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">二</span>
+        <h4>Events &amp; Celebration</h4>
+        <p>Host events that celebrate Chinese traditions and foster meaningful community engagement throughout the year.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">三</span>
+        <h4>Community &amp; Friendship</h4>
+        <p>Encourage lifelong friendships and community service throughout the Chippewa Valley.</p>
+      </div>
+    </div>
+  </div>
+  <div class="band band-tinted">
+    <div style="max-width:1100px; margin:0 auto; padding:0 clamp(1.5rem,5vw,4rem);">
+      <span class="eyebrow">What We Do</span>
+      <h2 class="headline">A Full Calendar of<br>Cultural Programs</h2>
+      <p class="lead">CFSA organizes cultural festivals, guest speaker events, and social gatherings throughout the year. Whether you are a student, community member, or ally, CFSA welcomes you to join us in building a supportive and vibrant multicultural community.</p>
+      <div class="activities-list">
+        <span class="activity-tag">Chinese New Year Celebrations</span>
+        <span class="activity-tag">Dragon Boat Festival</span>
+        <span class="activity-tag">Mid-Autumn Festival</span>
+        <span class="activity-tag">Moon Festival Gatherings</span>
+        <span class="activity-tag">Calligraphy Workshops</span>
+        <span class="activity-tag">Guest Speaker Events</span>
+        <span class="activity-tag">Cultural Festivals</span>
+        <span class="activity-tag">Social Gatherings</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2025 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
+
+
+<!-- ═══════════════ EVENTS ═══════════════ -->
+<div id="pg-events" class="page">
+  <div class="page-header" data-bg="节">
+    <span class="zh-label">活 动</span>
+    <h1>Events</h1>
+  </div>
+  <div class="container">
+    <span class="eyebrow">Upcoming Celebrations</span>
+    <h2 class="headline">Mark Your Calendar</h2>
+
+    <!-- Dragon Boat Festival -->
+    <div class="event-card coming-soon">
+      <span class="event-badge badge-coming">Details Coming Soon</span>
+      <h3>🐉 Dragon Boat Festival 2026</h3>
+      <div class="event-details-row">
+        <div class="event-detail"><strong>Date</strong>To Be Announced</div>
+        <div class="event-detail"><strong>Time</strong>To Be Announced</div>
+        <div class="event-detail"><strong>Location</strong>To Be Announced</div>
+      </div>
+      <p>The Dragon Boat Festival (端午节, Duānwǔ Jié) is one of China's most beloved traditional celebrations — featuring dragon boat racing, zongzi (sticky rice dumplings), and rich cultural traditions dating back thousands of years. Stay tuned for event details!</p>
+      <a href="https://www.facebook.com/groups/517836841890804/" target="_blank"
+         class="btn btn-outline-red">Follow us for Updates →</a>
+    </div>
+
+    <div style="margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--cream-dark);">
+      <span class="eyebrow">Stay Connected</span>
+      <p class="lead" style="margin-bottom: 1.5rem;">Follow us on Facebook to stay up to date on all CFSA events and announcements as details are released.</p>
+      <a href="https://www.facebook.com/groups/517836841890804/" target="_blank"
+         class="btn btn-outline-red">Follow on Facebook →</a>
+    </div>
+
+    <!-- Past Events -->
+    <div style="margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--cream-dark);">
+      <span class="eyebrow">Past Events</span>
+      <h2 class="headline" style="margin-bottom: 1.75rem;">Previous Celebrations</h2>
+
+      <div class="event-card" style="opacity: 0.75;">
+        <span class="event-badge" style="background: var(--cream-dark); color: var(--ink-light); border: 1px solid var(--cream-dark);">Past Event</span>
+        <h3>🎊 Chinese New Year Celebration 2026</h3>
+        <p>Thank you to everyone who joined us for our Chinese New Year Celebration at the Heyde Center! It was a wonderful evening of cultural performances, food, and community. Check out the photos in our <a href="#" onclick="show('gallery')" style="color: var(--gold);">Gallery</a>.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2025 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
+
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<div id="pg-gallery" class="page">
+  <div class="page-header" data-bg="影">
+    <span class="zh-label">活 动 相 册</span>
+    <h1>Photo Gallery</h1>
+  </div>
+  <div class="container">
+    <span class="eyebrow">Past Events</span>
+    <h2 class="headline">Memories from<br>Our Community</h2>
+    <p class="lead">A look back at the celebrations, workshops, and gatherings that bring our community together.</p>
+
+    <!-- ── Chinese New Year 2026 ── -->
+    <div class="gallery-section-header">
+      <span class="gallery-section-zh">新 年 快 乐</span>
+      <h3>Chinese New Year 2026</h3>
+      <p>A wonderful evening of performances, food, and community at the Heyde Center.</p>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-venue-overhead.jpg" alt="CNY venue overhead view">
+        <div class="photo-overlay"><span>The Heyde Center — ready for celebration</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-venue-balcony.jpg" alt="Venue from the balcony">
+        <div class="photo-overlay"><span>A full house at the Heyde Center</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dining.jpg" alt="Guests dining at the celebration">
+        <div class="photo-overlay"><span>Guests enjoying the evening together</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-buffet.jpg" alt="Food buffet">
+        <div class="photo-overlay"><span>Traditional food spread</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dragon-heyde.jpg" alt="Dragon dance at the Heyde Center">
+        <div class="photo-overlay"><span>Dragon dance at the Heyde Center</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dragon-dance-2.jpg" alt="Dragon dance performance">
+        <div class="photo-overlay"><span>Dragon dance performance</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dragon-dance-3.jpg" alt="Dragon dance — golden dragon">
+        <div class="photo-overlay"><span>The golden dragon in motion</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-lion-colorful.jpg" alt="Colorful lion dance">
+        <div class="photo-overlay"><span>Lion dance — vivid costumes and cymbal players</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-lion-dance-2.jpg" alt="Lion dance performance">
+        <div class="photo-overlay"><span>Lion dance performance</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-lion-lineup.jpg" alt="Lion dance troupe lineup">
+        <div class="photo-overlay"><span>The lion dance troupe takes a bow</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-ribbon-dance.jpg" alt="Ribbon dance performance">
+        <div class="photo-overlay"><span>Ribbon dance — a graceful formation</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dance-green.jpg" alt="Traditional dance in green">
+        <div class="photo-overlay"><span>Traditional dance performance</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-dance-finale.jpg" alt="Dance group finale">
+        <div class="photo-overlay"><span>Dance group finale pose</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-wushu-sword.jpg" alt="Wushu sword performance">
+        <div class="photo-overlay"><span>Wushu sword demonstration</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-mc-stage.jpg" alt="MCs on stage">
+        <div class="photo-overlay"><span>Hosts welcoming the audience</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-mc-laughing.jpg" alt="MCs on stage laughing">
+        <div class="photo-overlay"><span>A joyful moment on stage</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-mc-purple.jpg" alt="MCs on stage">
+        <div class="photo-overlay"><span>Evening program hosts</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-stage-gift.jpg" alt="Stage moment with gift">
+        <div class="photo-overlay"><span>A special moment on stage</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-kids-crafts.jpg" alt="Kids doing crafts">
+        <div class="photo-overlay"><span>Children making New Year crafts</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/cny26-calligraphy-display.jpg" alt="Calligraphy display">
+        <div class="photo-overlay"><span>Calligraphy art display</span></div>
+      </div>
+    </div>
+
+    <!-- ── Community Highlights ── -->
+    <div class="gallery-section-header" style="margin-top: 4rem;">
+      <span class="gallery-section-zh">社 区 活 动</span>
+      <h3>Community Highlights</h3>
+      <p>Outings, workshops, and gatherings from across the year.</p>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/tower.jpg" alt="CFSA fall group outing">
+        <div class="photo-overlay"><span>Fall group outing</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/apples.jpg" alt="Apple picking outing">
+        <div class="photo-overlay"><span>Apple picking outing</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/homepage1.jpg" alt="CFSA community banquet">
+        <div class="photo-overlay"><span>CFSA community banquet</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/calligraphy.jpg" alt="Calligraphy workshop">
+        <div class="photo-overlay"><span>Calligraphy workshop</span></div>
+      </div>
+      <div class="photo-item" onclick="openLightbox(this)">
+        <img src="images/quilts.jpg" alt="Traditional quilts display">
+        <div class="photo-overlay"><span>Traditional quilts display</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--cream-dark); display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+      <p style="color: var(--ink-light); font-size: 1rem;">More photos on our Facebook page →</p>
+      <a href="https://www.facebook.com/groups/517836841890804/" target="_blank"
+         class="btn btn-outline-red">Visit Facebook Group</a>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2025 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<div id="pg-contact" class="page">
+  <div class="page-header" data-bg="联">
+    <span class="zh-label">联 系 我 们</span>
+    <h1>Contact Us</h1>
+  </div>
+  <div class="container">
+    <span class="eyebrow">Get In Touch</span>
+    <h2 class="headline">We'd Love<br>to Hear from You</h2>
+    <p class="lead" style="margin-bottom: 3.5rem;">Reach out with any questions, inquiries, or if you're interested in joining CFSA. Everyone is welcome.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-item">
+          <h4>Email</h4>
+          <a href="mailto:cvcfsa@gmail.com">cvcfsa@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <h4>Facebook</h4>
+          <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">CVCFSA Facebook Group →</a>
+        </div>
+        <div class="contact-item">
+          <h4>Location</h4>
+          <p style="color: var(--ink-light); font-size: 1rem;">Eau Claire, WI and the Chippewa Valley</p>
+        </div>
+        <a class="btn btn-gold" style="margin-top: 0.5rem;" onclick="show('events')">View Upcoming Events</a>
+      </div>
+      <div class="contact-visual">
+        <span class="contact-zh">华谊</span>
+        <p>Chippewa Valley · Eau Claire, WI</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2025 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
+
+
+<!-- ═══════════════ JS ═══════════════ -->
+<script>
+  /* ── Page navigation ── */
+  function show(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('pg-' + id).classList.add('active');
+    document.getElementById('nl-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    return false;
+  }
+
+  /* ── Slideshow ── */
+  let slideIndex = 0;
+  let slideTimer;
+  const SLIDE_INTERVAL = 5000;
+
+  function initSlideshow() {
+    const track = document.getElementById('slideshowTrack');
+    const dotsEl = document.getElementById('slideDots');
+    const count = track.children.length;
+
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+      const d = document.createElement('button');
+      d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      d.onclick = () => goToSlide(i);
+      dotsEl.appendChild(d);
+    }
+
+    startAutoplay();
+  }
+
+  function goToSlide(n) {
+    const track = document.getElementById('slideshowTrack');
+    const count = track.children.length;
+    slideIndex = (n + count) % count;
+    track.style.transform = `translateX(-${slideIndex * 100}%)`;
+    document.querySelectorAll('.slide-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === slideIndex));
+    restartAutoplay();
+  }
+
+  function slideMove(dir) { goToSlide(slideIndex + dir); }
+
+  function startAutoplay() {
+    slideTimer = setInterval(() => goToSlide(slideIndex + 1), SLIDE_INTERVAL);
+  }
+  function restartAutoplay() {
+    clearInterval(slideTimer);
+    startAutoplay();
+  }
+
+  /* ── Lightbox ── */
+  function openLightbox(el) {
+    const img = el.querySelector('img');
+    document.getElementById('lightboxImg').src = img.src;
+    document.getElementById('lightboxImg').alt = img.alt;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ── Init ── */
+  initSlideshow();
+</script>
 </body>
 </html>
