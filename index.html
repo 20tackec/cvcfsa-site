@@ -490,6 +490,8 @@
       .event-strip { flex-direction: column; align-items: flex-start; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
       .dragon-boat-grid { grid-template-columns: 1fr !important; }
+      .event-card > div[style*="grid-template-columns: 1fr auto"] { grid-template-columns: 1fr !important; }
+      .event-card img { width: 100% !important; max-width: 320px; margin: 0 auto; display: block; }
     }
     @media (max-width: 450px) {
       .photo-grid { grid-template-columns: 1fr; }
@@ -534,35 +536,27 @@
       <div>
         <span class="eyebrow" style="color: var(--red);">Coming Up · June 20, 2026</span>
         <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--red-dark); line-height: 1.2; margin-bottom: 1rem;">🐉 Dragon Boat Festival 2026</h2>
-        <p style="font-size: 1.1rem; color: var(--ink-light); margin-bottom: 1.75rem; max-width: 480px;">Join us for an outdoor celebration of the Dragon Boat Festival (端午节) — featuring zongzi making &amp; tasting, outdoor games, qigong, and bamboo tea. All are welcome!</p>
-        <a class="btn btn-gold" onclick="show('events')">View Event Details →</a>
-      </div>
-      <div style="background: var(--red-dark); padding: clamp(1.5rem, 3vw, 2.5rem); position: relative; overflow: hidden;">
-        <div style="position: absolute; top: -1rem; right: -1rem; font-family: 'Ma Shan Zheng', serif; font-size: 10rem; color: rgba(255,255,255,0.04); line-height:1; pointer-events:none;">龙</div>
-        <div style="position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div style="border-top: 2px solid var(--gold); padding-top: 0.75rem;">
-            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem;">Date</div>
-            <div style="color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;">Saturday, June 20th</div>
+        <p style="font-size: 1.1rem; color: var(--ink-light); margin-bottom: 1.5rem; max-width: 480px;">Join us for an outdoor celebration of the Dragon Boat Festival (端午节) — featuring zongzi making &amp; tasting, outdoor games, qigong, and bamboo tea. All are welcome!</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; margin-bottom: 1.75rem;">
+          <div>
+            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem;">Date</div>
+            <div style="color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;">Saturday, June 20th</div>
           </div>
-          <div style="border-top: 2px solid var(--gold); padding-top: 0.75rem;">
-            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem;">Time</div>
-            <div style="color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;">10:30am – 12:30pm</div>
+          <div>
+            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem;">Time</div>
+            <div style="color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;">10:30am – 12:30pm</div>
           </div>
-          <div style="border-top: 2px solid var(--gold); padding-top: 0.75rem; grid-column: span 2;">
-            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem;">Location</div>
-            <div style="color: var(--cream); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;">Boyd Park Shelter/Pavilion</div>
-            <div style="color: rgba(246,241,232,0.6); font-size: 0.95rem;">1202 Fairway St, Eau Claire, WI 54701</div>
-          </div>
-          <div style="border-top: 2px solid var(--gold); padding-top: 0.75rem; grid-column: span 2;">
-            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;">Activities</div>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
-              <span style="background: rgba(196,154,40,0.15); border: 1px solid rgba(196,154,40,0.35); color: var(--gold-light); font-size: 0.82rem; padding: 0.25rem 0.75rem;">Zongzi Making &amp; Tasting</span>
-              <span style="background: rgba(196,154,40,0.15); border: 1px solid rgba(196,154,40,0.35); color: var(--gold-light); font-size: 0.82rem; padding: 0.25rem 0.75rem;">Outdoor Games</span>
-              <span style="background: rgba(196,154,40,0.15); border: 1px solid rgba(196,154,40,0.35); color: var(--gold-light); font-size: 0.82rem; padding: 0.25rem 0.75rem;">Qigong</span>
-              <span style="background: rgba(196,154,40,0.15); border: 1px solid rgba(196,154,40,0.35); color: var(--gold-light); font-size: 0.82rem; padding: 0.25rem 0.75rem;">Bamboo Tea</span>
-            </div>
+          <div style="grid-column: span 2;">
+            <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem;">Location</div>
+            <div style="color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;">Boyd Park Shelter/Pavilion</div>
+            <div style="color: var(--ink-light); font-size: 0.95rem;">1202 Fairway St, Eau Claire, WI 54701</div>
           </div>
         </div>
+        <a class="btn btn-gold" onclick="show('events')">View Event Details →</a>
+      </div>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="images/dragon-boat-poster.png" alt="2026 CFSA Dragon Boat Festival poster"
+             style="max-width: 100%; max-height: 600px; object-fit: contain; box-shadow: 0 8px 32px rgba(0,0,0,0.18);">
       </div>
     </div>
   </div>
@@ -702,19 +696,27 @@
     <!-- Dragon Boat Festival -->
     <div class="event-card">
       <span class="event-badge badge-gold">Upcoming Event</span>
-      <h3>🐉 Dragon Boat Festival 2026</h3>
-      <div class="event-details-row">
-        <div class="event-detail"><strong>Date</strong>Saturday, June 20th, 2026</div>
-        <div class="event-detail"><strong>Time</strong>10:30am – 12:30pm</div>
-        <div class="event-detail"><strong>Location</strong>Boyd Park Shelter/Pavilion</div>
-        <div class="event-detail"><strong>Address</strong>1202 Fairway St, Eau Claire, WI 54701</div>
-      </div>
-      <p>Join us for an outdoor celebration of the Dragon Boat Festival (端午节, Duānwǔ Jié) — one of China's most beloved traditional holidays! We'll have zongzi making &amp; tasting, outdoor games and activities, qigong, and bamboo tea. All are welcome, bring the whole family!</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;">
-        <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Zongzi Making &amp; Tasting</span>
-        <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Outdoor Games &amp; Activities</span>
-        <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Qigong</span>
-        <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Bamboo Tea</span>
+      <div style="display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start;">
+        <div>
+          <h3>🐉 Dragon Boat Festival 2026</h3>
+          <div class="event-details-row">
+            <div class="event-detail"><strong>Date</strong>Saturday, June 20th, 2026</div>
+            <div class="event-detail"><strong>Time</strong>10:30am – 12:30pm</div>
+            <div class="event-detail"><strong>Location</strong>Boyd Park Shelter/Pavilion</div>
+            <div class="event-detail"><strong>Address</strong>1202 Fairway St, Eau Claire, WI 54701</div>
+          </div>
+          <p>Join us for an outdoor celebration of the Dragon Boat Festival (端午节, Duānwǔ Jié) — one of China's most beloved traditional holidays! We'll have zongzi making &amp; tasting, outdoor games and activities, qigong, and bamboo tea. All are welcome, bring the whole family!</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Zongzi Making &amp; Tasting</span>
+            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Outdoor Games &amp; Activities</span>
+            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Qigong</span>
+            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Bamboo Tea</span>
+          </div>
+        </div>
+        <div style="flex-shrink: 0;">
+          <img src="images/dragon-boat-poster.png" alt="2026 Dragon Boat Festival poster"
+               style="width: 340px; object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.12);">
+        </div>
       </div>
     </div>
 
