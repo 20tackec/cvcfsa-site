@@ -95,7 +95,7 @@
 
     /* ─── HERO ─── */
     .hero {
-      min-height: calc(88vh - 70px); background: var(--red-dark);
+      min-height: calc(55vh - 70px); background: var(--red-dark);
       display: flex; align-items: center; justify-content: center;
       text-align: center; position: relative; overflow: hidden;
     }
@@ -126,8 +126,8 @@
     }
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 4vw, 2.9rem); color: var(--cream);
-      font-weight: 300; line-height: 1.25; max-width: 680px;
+      font-size: clamp(1.4rem, 3.2vw, 2.4rem); color: var(--cream);
+      font-weight: 300; line-height: 1.25; max-width: 780px;
       animation: riseIn 0.9s ease 0.25s both;
     }
     .hero-sub {
@@ -490,6 +490,7 @@
       .event-strip { flex-direction: column; align-items: flex-start; }
       .photo-grid { grid-template-columns: repeat(2, 1fr); }
       .dragon-boat-grid { grid-template-columns: 1fr !important; }
+      .volunteer-grid { grid-template-columns: 1fr !important; }
       .event-card > div[style*="grid-template-columns: 1fr auto"] { grid-template-columns: 1fr !important; }
       .event-card img { width: 100% !important; max-width: 320px; margin: 0 auto; display: block; }
     }
@@ -509,6 +510,7 @@
     <li><a id="nl-events"  onclick="show('events')"           >Events</a></li>
     <li><a id="nl-gallery" onclick="show('gallery')"          >Gallery</a></li>
     <li><a id="nl-contact" onclick="show('contact')"          >Contact</a></li>
+    <li><a id="nl-volunteer" onclick="show('volunteer')"       >Volunteer</a></li>
   </ul>
 </nav>
 
@@ -527,6 +529,11 @@
         <a class="btn btn-gold" onclick="show('contact')">Join Us</a>
         <a class="btn btn-outline-cream" onclick="show('events')">Upcoming Events →</a>
       </div>
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(196,154,40,0.25); animation: riseIn 0.9s ease 0.55s both;">
+        <p style="color: rgba(246,241,232,0.8); font-size: 1.15rem; letter-spacing: 0.03em;">
+          Interested in volunteering? &nbsp;<a onclick="show('volunteer')" style="color: var(--gold-light); text-decoration: underline; cursor: pointer; font-weight: 600;">Learn more &amp; sign up →</a>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -534,9 +541,9 @@
   <div style="background: var(--cream); padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);">
     <div style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center;" class="dragon-boat-grid">
       <div>
-        <span class="eyebrow" style="color: var(--red);">Coming Up · June 20, 2026</span>
+        <span class="eyebrow" style="color: var(--red);">Thank You · June 20, 2026</span>
         <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--red-dark); line-height: 1.2; margin-bottom: 1rem;">🐉 Dragon Boat Festival 2026</h2>
-        <p style="font-size: 1.1rem; color: var(--ink-light); margin-bottom: 1.5rem; max-width: 480px;">Join us for an outdoor celebration of the Dragon Boat Festival (端午节) — featuring zongzi making &amp; tasting, outdoor games, qigong, and bamboo tea. All are welcome!</p>
+        <p style="font-size: 1.1rem; color: var(--ink-light); margin-bottom: 1.5rem; max-width: 480px;">Thank you to everyone who joined us for a wonderful Dragon Boat Festival (端午节) celebration at Boyd Park! We had a great morning of zongzi making &amp; tasting, outdoor games, qigong, and bamboo tea.</p>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1.5rem; margin-bottom: 1.75rem;">
           <div>
             <div style="font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem;">Date</div>
@@ -552,7 +559,7 @@
             <div style="color: var(--ink-light); font-size: 0.95rem;">1202 Fairway St, Eau Claire, WI 54701</div>
           </div>
         </div>
-        <a class="btn btn-gold" onclick="show('events')">View Event Details →</a>
+        <a class="btn btn-gold" onclick="show('gallery')">View Photos →</a>
       </div>
       <div style="display: flex; justify-content: center; align-items: center;">
         <img src="images/dragon-boat-poster.png" alt="2026 CFSA Dragon Boat Festival poster"
@@ -690,35 +697,10 @@
     <h1>Events</h1>
   </div>
   <div class="container">
-    <span class="eyebrow">Upcoming Celebrations</span>
-    <h2 class="headline">Mark Your Calendar</h2>
+    <span class="eyebrow">Stay Connected</span>
+    <h2 class="headline">Follow Us for<br>Future Events</h2>
 
-    <!-- Dragon Boat Festival -->
-    <div class="event-card">
-      <span class="event-badge badge-gold">Upcoming Event</span>
-      <div style="display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start;">
-        <div>
-          <h3>🐉 Dragon Boat Festival 2026</h3>
-          <div class="event-details-row">
-            <div class="event-detail"><strong>Date</strong>Saturday, June 20th, 2026</div>
-            <div class="event-detail"><strong>Time</strong>10:30am – 12:30pm</div>
-            <div class="event-detail"><strong>Location</strong>Boyd Park Shelter/Pavilion</div>
-            <div class="event-detail"><strong>Address</strong>1202 Fairway St, Eau Claire, WI 54701</div>
-          </div>
-          <p>Join us for an outdoor celebration of the Dragon Boat Festival (端午节, Duānwǔ Jié) — one of China's most beloved traditional holidays! We'll have zongzi making &amp; tasting, outdoor games and activities, qigong, and bamboo tea. All are welcome, bring the whole family!</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Zongzi Making &amp; Tasting</span>
-            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Outdoor Games &amp; Activities</span>
-            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Qigong</span>
-            <span style="background: rgba(122,16,16,0.08); border: 1px solid rgba(122,16,16,0.2); color: var(--red); font-size: 0.82rem; padding: 0.25rem 0.85rem; font-family: 'Crimson Pro', serif; letter-spacing: 0.08em;">Bamboo Tea</span>
-          </div>
-        </div>
-        <div style="flex-shrink: 0;">
-          <img src="images/dragon-boat-poster.png" alt="2026 Dragon Boat Festival poster"
-               style="width: 340px; object-fit: contain; box-shadow: 0 4px 20px rgba(0,0,0,0.12);">
-        </div>
-      </div>
-    </div>
+
 
     <div style="margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--cream-dark);">
       <span class="eyebrow">Stay Connected</span>
@@ -731,6 +713,13 @@
     <div style="margin-top: 4rem; padding-top: 3rem; border-top: 2px solid var(--cream-dark);">
       <span class="eyebrow">Past Events</span>
       <h2 class="headline" style="margin-bottom: 1.75rem;">Previous Celebrations</h2>
+
+      <div class="event-card" style="opacity: 0.75; margin-bottom: 1.5rem;">
+        <span class="event-badge" style="background: var(--cream-dark); color: var(--ink-light); border: 1px solid var(--cream-dark);">Past Event</span>
+        <h3>🐉 Dragon Boat Festival 2026</h3>
+        <p style="color: var(--ink-light); margin-bottom: 0.5rem;"><strong style="color: var(--ink);">June 20, 2026 &nbsp;·&nbsp; Boyd Park Shelter/Pavilion, Eau Claire</strong></p>
+        <p>Thank you to everyone who joined us for a wonderful morning of zongzi making &amp; tasting, outdoor games, qigong, and bamboo tea. Check out the photos in our <a href="#" onclick="show('gallery')" style="color: var(--gold);">Gallery</a>.</p>
+      </div>
 
       <div class="event-card" style="opacity: 0.75;">
         <span class="event-badge" style="background: var(--cream-dark); color: var(--ink-light); border: 1px solid var(--cream-dark);">Past Event</span>
@@ -940,6 +929,57 @@
   </footer>
 </div>
 
+
+<!-- ═══════════════ VOLUNTEER ═══════════════ -->
+<div id="pg-volunteer" class="page">
+  <div class="page-header" data-bg="志">
+    <span class="zh-label">志 愿 者</span>
+    <h1>Volunteer with CFSA</h1>
+  </div>
+  <div class="container">
+    <span class="eyebrow">Get Involved</span>
+    <h2 class="headline">Help Us Celebrate<br>Culture &amp; Community</h2>
+    <p class="lead" style="margin-bottom: 3rem;">CFSA events come to life because of the generosity and energy of our volunteers. Whether you can help set up an event, assist with food preparation, support cultural performances, or lend a hand in any other way — your time and talents make a real difference. Fill out the form below and we'll be in touch!</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: clamp(2rem, 5vw, 5rem); align-items: start;" class="volunteer-grid">
+      <div>
+        <div class="pillar" style="margin-bottom: 2rem;">
+          <span class="pillar-num">一</span>
+          <h4>Event Setup &amp; Operations</h4>
+          <p>Help prepare venues, arrange tables, manage check-in, and keep events running smoothly.</p>
+        </div>
+        <div class="pillar" style="margin-bottom: 2rem;">
+          <span class="pillar-num">二</span>
+          <h4>Food &amp; Hospitality</h4>
+          <p>Assist with food preparation, serving, and making guests feel welcome.</p>
+        </div>
+        <div class="pillar" style="margin-bottom: 2rem;">
+          <span class="pillar-num">三</span>
+          <h4>Cultural Programs</h4>
+          <p>Support performances, demonstrations, and cultural activities at our events.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num">四</span>
+          <h4>Photography &amp; More</h4>
+          <p>Capture memories, help with translation, social media, or general support.</p>
+        </div>
+      </div>
+      <div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScCJnqvc_nDW_NIq6Q8V1U2o0nU3EudJEVe7-omyZa-GfhUGQ/viewform?embedded=true"
+          width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0"
+          style="border: 1.5px solid var(--cream-dark); display: block;">
+          Loading form…
+        </iframe>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="footer-zh">华 谊 协 会</span>
+    <p>© 2026 Chinese Friendship and Scholarship Association &nbsp;·&nbsp;
+       <a href="https://www.facebook.com/groups/517836841890804/" target="_blank">Follow us on Facebook</a>
+    </p>
+  </footer>
+</div>
 
 <!-- ═══════════════ JS ═══════════════ -->
 <script>
