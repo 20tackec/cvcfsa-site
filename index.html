@@ -241,6 +241,15 @@
     .slide-btn:hover { background: var(--red-dark); }
     .slide-btn-prev { left: 0.75rem; }
     .slide-btn-next { right: 0.75rem; }
+    .slide-play-btn {
+      position: absolute; bottom: 0.75rem; right: 0.75rem; z-index: 10;
+      background: rgba(78,10,10,0.75); color: var(--gold-light);
+      border: 1px solid var(--gold); border-radius: 50%;
+      width: 2.2rem; height: 2.2rem; font-size: 0.85rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .slide-play-btn:hover { background: var(--red-dark); }
     .slide-dots { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
     .slide-dot {
       width: 8px; height: 8px; border-radius: 50%;
@@ -644,6 +653,7 @@
 
       <button class="slide-btn slide-btn-prev" onclick="slideMove(-1)">&#8592;</button>
       <button class="slide-btn slide-btn-next" onclick="slideMove(1)">&#8594;</button>
+      <button class="slide-play-btn" id="playBtn-home" onclick="toggleHomePlay()">&#9654;</button>
     </div>
     </div>
     </div>
@@ -906,6 +916,7 @@
           </div>
           <button class="slide-btn slide-btn-prev" onclick="galleryMove('db26',-1)">&#8592;</button>
           <button class="slide-btn slide-btn-next" onclick="galleryMove('db26',1)">&#8594;</button>
+          <button class="slide-play-btn" id="playBtn-db26" onclick="toggleGalleryPlay('db26')">&#9654;</button>
         </div>
       </div>
     </div>
@@ -947,6 +958,7 @@
           </div>
           <button class="slide-btn slide-btn-prev" onclick="galleryMove('cny26',-1)">&#8592;</button>
           <button class="slide-btn slide-btn-next" onclick="galleryMove('cny26',1)">&#8594;</button>
+          <button class="slide-play-btn" id="playBtn-cny26" onclick="toggleGalleryPlay('cny26')">&#9654;</button>
         </div>
       </div>
     </div>
@@ -973,6 +985,7 @@
           </div>
           <button class="slide-btn slide-btn-prev" onclick="galleryMove('comm',-1)">&#8592;</button>
           <button class="slide-btn slide-btn-next" onclick="galleryMove('comm',1)">&#8594;</button>
+          <button class="slide-play-btn" id="playBtn-comm" onclick="toggleGalleryPlay('comm')">&#9654;</button>
         </div>
       </div>
     </div>
@@ -1111,8 +1124,21 @@
       d.onclick = () => goToSlide(i);
       dotsEl.appendChild(d);
     }
+    // Don't autoplay on load
+  }
 
-    startAutoplay();
+  let homePlaying = false;
+  function toggleHomePlay() {
+    const btn = document.getElementById('playBtn-home');
+    if (homePlaying) {
+      clearInterval(slideTimer);
+      homePlaying = false;
+      btn.innerHTML = '&#9654;';
+    } else {
+      startAutoplay();
+      homePlaying = true;
+      btn.innerHTML = '&#9646;&#9646;';
+    }
   }
 
   function goToSlide(n) {
@@ -1161,6 +1187,8 @@
     if (!track || !dotsEl) return;
     const count = track.children.length;
     let index = 0;
+    let timer = null;
+    let playing = false;
 
     dotsEl.innerHTML = '';
     for (let i = 0; i < count; i++) {
@@ -1181,13 +1209,31 @@
       if (counter) counter.textContent = 'Photo ' + (index + 1) + ' / ' + count;
     }
 
-    gallerySlideshows[id] = { goTo: goTo, getIndex: function(){ return index; } };
-    setInterval(function(){ goTo(index + 1); }, 6000);
+    function togglePlay() {
+      const btn = document.getElementById('playBtn-' + id);
+      if (playing) {
+        clearInterval(timer);
+        playing = false;
+        if (btn) btn.innerHTML = '&#9654;';
+      } else {
+        timer = setInterval(function(){ goTo(index + 1); }, 6000);
+        playing = true;
+        if (btn) btn.innerHTML = '&#9646;&#9646;';
+      }
+    }
+
+    gallerySlideshows[id] = { goTo: goTo, getIndex: function(){ return index; }, togglePlay: togglePlay };
+    // Don't autoplay on load
   }
 
   function galleryMove(id, dir) {
     const ss = gallerySlideshows[id];
     if (ss) ss.goTo(ss.getIndex() + dir);
+  }
+
+  function toggleGalleryPlay(id) {
+    const ss = gallerySlideshows[id];
+    if (ss) ss.togglePlay();
   }
 
   initGallerySlideshow('db26');
